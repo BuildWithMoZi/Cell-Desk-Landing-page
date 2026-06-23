@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import { asset } from "@/lib/basePath";
 
 const SCREENS = [
   { src: "/product-img/signup-signin-screen.png", label: "Sign In & Onboarding" },
@@ -53,7 +54,7 @@ export default function Showcase() {
           {SCREENS.map((screen) => (
             <figure className="phone" key={screen.src}>
               <div className="phone-frame">
-                <img src={screen.src} alt={screen.label} loading="lazy" />
+                <img src={asset(screen.src)} alt={screen.label} loading="lazy" />
               </div>
               <figcaption className="phone-label">{screen.label}</figcaption>
             </figure>

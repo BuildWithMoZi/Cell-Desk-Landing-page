@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { asset } from "@/lib/basePath";
 
 const NAV_LINKS = [
   { href: "#features", label: "Features" },
@@ -33,7 +34,7 @@ export default function Navbar() {
         <Link href="/" className="nav-logo" aria-label="Cell Desk home">
           <img
             className="nav-logo-img"
-            src="/logo-img.png"
+            src={asset("/logo-img.png")}
             alt="Cell Desk logo"
             width={32}
             height={32}

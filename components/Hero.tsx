@@ -1,5 +1,7 @@
 "use client";
 
+import { asset } from "@/lib/basePath";
+
 const PRODUCTS = [
   { src: "/hero-imges/2.png", alt: "Wireless headphones" },
   { src: "/hero-imges/1.png", alt: "Wireless earbuds" },
@@ -37,7 +39,7 @@ export default function Hero() {
                 key={p.src}
                 style={{ animationDelay: `${0.55 + i * 0.1}s` }}
               >
-                <img src={p.src} alt={p.alt} draggable={false} />
+                <img src={asset(p.src)} alt={p.alt} draggable={false} />
               </div>
             ))}
           </div>

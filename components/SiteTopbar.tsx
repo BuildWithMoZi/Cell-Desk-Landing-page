@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { asset } from "@/lib/basePath";
 
 export default function SiteTopbar() {
   return (
@@ -6,7 +7,7 @@ export default function SiteTopbar() {
       <Link href="/" className="nav-logo" aria-label="Cell Desk home">
         <img
           className="nav-logo-img"
-          src="/logo-img.png"
+          src={asset("/logo-img.png")}
           alt="Cell Desk logo"
           width={36}
           height={36}

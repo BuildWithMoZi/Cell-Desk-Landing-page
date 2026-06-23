@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { asset } from "@/lib/basePath";
 
 const productLinks = [
   { label: "Features", href: "/#features" },
@@ -22,7 +23,7 @@ export default function Footer() {
           <Link href="/" className="footer-logo">
             <img
               className="footer-logo-img"
-              src="/logo-img.png"
+              src={asset("/logo-img.png")}
               alt="Cell Desk logo"
               width={32}
               height={32}
