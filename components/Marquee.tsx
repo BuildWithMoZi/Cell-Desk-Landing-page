@@ -1,22 +1,18 @@
-const PRODUCTS = [
-  "iPhone 15 Pro",
-  "Galaxy S24 Ultra",
-  "AirPods Pro",
-  "Pixel 8",
-  "OnePlus 12",
-  "Redmi Note 13",
-  "20K Power Bank",
-  "65W Fast Charger",
-  "Smart Watch",
-  "USB-C Cable",
-  "Wireless Earbuds",
-  "Tempered Glass",
-  "Phone Case",
-  "Bluetooth Speaker",
+const SOLUTIONS = [
+  "Every sale auto-recorded — no missed entries",
+  "Zero calculation errors",
+  "Stock updates in real time",
+  "Safe cloud backup — never lose data",
+  "Low-stock alerts before you run out",
+  "Smart purchase suggestions",
+  "No more manual stock counting",
+  "Always-accurate live inventory",
+  "All suppliers & records in one place",
+  "Instant invoices & sales reports",
 ];
 
 export default function Marquee() {
-  const items = [...PRODUCTS, ...PRODUCTS];
+  const items = [...SOLUTIONS, ...SOLUTIONS];
 
   return (
     <div className="marquee" aria-hidden="true">

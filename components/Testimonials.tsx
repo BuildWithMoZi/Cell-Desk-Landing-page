@@ -29,6 +29,7 @@ const testimonials: Testimonial[] = [
 export default function Testimonials() {
   return (
     <section id="testimonials" className="section">
+      <div className="sec-orb sec-orb-br-sm" aria-hidden="true" />
       <div
         className="center"
         style={{ maxWidth: "var(--maxw)", margin: "0 auto 3rem" }}

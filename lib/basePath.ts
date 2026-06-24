@@ -6,3 +6,11 @@ export const basePath =
 
 export const asset = (path: string): string =>
   `${basePath}${path.startsWith("/") ? path : `/${path}`}`;
+
+// Public production URL (GitHub Pages, includes the repo base path).
+// Used for canonical URLs, Open Graph tags, sitemap and robots.
+export const siteUrl =
+  "https://buildwithmozi.github.io/Cell-Desk-Landing-page";
+
+export const pageUrl = (path = "/"): string =>
+  `${siteUrl}${path.startsWith("/") ? path : `/${path}`}`;

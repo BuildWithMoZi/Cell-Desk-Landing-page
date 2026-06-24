@@ -26,18 +26,6 @@ export default function Home() {
       <BottomNav />
       <Hero />
       <div className="content-frame">
-        <div className="hero-logos">
-          <span className="hero-logos-label">Trusted by 500+ shops</span>
-          <div className="hero-logos-row">
-            {["NokiaMart", "CellHub", "GadgetBay", "MobiZone", "TeleStore"].map(
-              (logo) => (
-                <span className="hero-logo-item" key={logo}>
-                  {logo}
-                </span>
-              )
-            )}
-          </div>
-        </div>
         <Marquee />
         <Stats />
         <ProblemSolution />

@@ -44,6 +44,8 @@ export default function Pricing() {
 
   return (
     <section id="pricing" className="section">
+      <div className="sec-orb sec-orb-left-md" aria-hidden="true" />
+      <div className="sec-orb sec-orb-tr-sm" aria-hidden="true" />
       <div
         className="center"
         style={{ maxWidth: "var(--maxw)", margin: "0 auto 2.5rem" }}

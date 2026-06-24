@@ -31,7 +31,7 @@ export default function Navbar() {
   return (
     <>
       <nav id="navbar">
-        <Link href="/" className="nav-logo" aria-label="Cell Desk home">
+        <a href="#hero" className="nav-logo" aria-label="Cell Desk home">
           <img
             className="nav-logo-img"
             src={asset("/logo-img.png")}
@@ -40,7 +40,7 @@ export default function Navbar() {
             height={32}
           />
           Cell Desk
-        </Link>
+        </a>
 
         <div className="nav-actions">
           <Link href="/contact" className="btn btn-ghost btn-sm">

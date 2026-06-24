@@ -1,11 +1,29 @@
 import type { Metadata } from "next";
 import SiteTopbar from "@/components/SiteTopbar";
 import Footer from "@/components/Footer";
+import { pageUrl } from "@/lib/basePath";
+
+const description =
+  "How CraftDesk collects, uses, stores, and protects information in the Cell Desk app.";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy — Cell Desk",
-  description:
-    "How CraftDesk collects, uses, stores, and protects information in the Cell Desk app.",
+  title: "Privacy Policy",
+  description,
+  alternates: {
+    canonical: pageUrl("/privacy/"),
+  },
+  openGraph: {
+    type: "article",
+    url: pageUrl("/privacy/"),
+    siteName: "Cell Desk",
+    title: "Privacy Policy — Cell Desk",
+    description,
+  },
+  twitter: {
+    card: "summary",
+    title: "Privacy Policy — Cell Desk",
+    description,
+  },
 };
 
 export default function PrivacyPage() {

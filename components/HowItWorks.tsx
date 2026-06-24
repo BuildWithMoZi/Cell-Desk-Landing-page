@@ -75,6 +75,7 @@ const steps: Step[] = [
 export default function HowItWorks() {
   return (
     <section id="how" className="section">
+      <div className="sec-orb sec-orb-bl-md" aria-hidden="true" />
       <div
         className="center"
         style={{ maxWidth: "var(--maxw)", margin: "0 auto 3.5rem" }}

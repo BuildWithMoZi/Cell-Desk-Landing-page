@@ -2,11 +2,29 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SiteTopbar from "@/components/SiteTopbar";
 import Footer from "@/components/Footer";
+import { pageUrl } from "@/lib/basePath";
+
+const description =
+  "The terms governing your access to and use of the Cell Desk app by CraftDesk.";
 
 export const metadata: Metadata = {
-  title: "Terms & Conditions — Cell Desk",
-  description:
-    "The terms governing your access to and use of the Cell Desk app by CraftDesk.",
+  title: "Terms & Conditions",
+  description,
+  alternates: {
+    canonical: pageUrl("/terms/"),
+  },
+  openGraph: {
+    type: "article",
+    url: pageUrl("/terms/"),
+    siteName: "Cell Desk",
+    title: "Terms & Conditions — Cell Desk",
+    description,
+  },
+  twitter: {
+    card: "summary",
+    title: "Terms & Conditions — Cell Desk",
+    description,
+  },
 };
 
 export default function TermsPage() {
