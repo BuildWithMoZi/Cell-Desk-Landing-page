@@ -5,11 +5,13 @@ import { asset } from "@/lib/basePath";
 
 const SCREENS = [
   { src: "/product-img/signup-signin-screen.png", label: "Sign In & Onboarding" },
+  { src: "/product-img/create-acc-screen.png", label: "Create Account" },
   { src: "/product-img/home-screen.png", label: "Dashboard" },
+  { src: "/product-img/home-screen1.png", label: "Home Overview" },
   { src: "/product-img/products-screen.png", label: "Products" },
   { src: "/product-img/products-screen-2.png", label: "Product Catalog" },
+  { src: "/product-img/Brands-screen.png", label: "Brands" },
   { src: "/product-img/add-brand-screen.png", label: "Add Brand" },
-  { src: "/product-img/inventory.png", label: "Inventory" },
   { src: "/product-img/sales-screen.png", label: "Sales History" },
   { src: "/product-img/customer-screen.png", label: "Customers" },
 ];
