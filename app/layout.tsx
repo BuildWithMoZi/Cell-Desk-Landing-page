@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { siteUrl, pageUrl } from "@/lib/basePath";
+import { faqs } from "@/lib/faqs";
 
 const siteName = "Cell Desk";
 const defaultTitle = "Cell Desk — Mobile Shop Inventory & Sales Management";
@@ -72,26 +73,64 @@ export const viewport: Viewport = {
   themeColor: "#F4F6FA",
 };
 
+const organizationId = `${siteUrl}/#organization`;
+const websiteId = `${siteUrl}/#website`;
+
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: siteName,
-  applicationCategory: "BusinessApplication",
-  operatingSystem: "Android",
-  description: defaultDescription,
-  url: pageUrl("/"),
-  image: ogImage,
-  offers: {
-    "@type": "Offer",
-    price: "0",
-    priceCurrency: "INR",
-  },
-  publisher: {
-    "@type": "Organization",
-    name: "CraftDesk",
-    url: "https://craftdesk.co.in",
-    email: "craftdesk.tech@gmail.com",
-  },
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": organizationId,
+      name: "CraftDesk",
+      url: "https://craftdesk.co.in",
+      email: "craftdesk.tech@gmail.com",
+      logo: {
+        "@type": "ImageObject",
+        url: pageUrl("/logo-img.png"),
+      },
+      brand: {
+        "@type": "Brand",
+        name: siteName,
+      },
+    },
+    {
+      "@type": "WebSite",
+      "@id": websiteId,
+      url: pageUrl("/"),
+      name: siteName,
+      description: defaultDescription,
+      inLanguage: "en",
+      publisher: { "@id": organizationId },
+    },
+    {
+      "@type": "SoftwareApplication",
+      name: siteName,
+      applicationCategory: "BusinessApplication",
+      operatingSystem: "Android",
+      description: defaultDescription,
+      url: pageUrl("/"),
+      image: ogImage,
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "INR",
+      },
+      publisher: { "@id": organizationId },
+    },
+    {
+      "@type": "FAQPage",
+      "@id": `${siteUrl}/#faq`,
+      mainEntity: faqs.map((faq) => ({
+        "@type": "Question",
+        name: faq.q,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: faq.a,
+        },
+      })),
+    },
+  ],
 };
 
 export default function RootLayout({
