@@ -24,7 +24,27 @@ const testimonials: Testimonial[] = [
     name: "Ravi Kulkarni",
     role: "Founder, QuickCell · Pune",
   },
+  {
+    text: "Daily sales and profit reports land on my phone every evening. I finally know my numbers without touching a calculator.",
+    initials: "SN",
+    name: "Sana Naaz",
+    role: "Owner, Smart Gadgets · Hyderabad",
+  },
+  {
+    text: "IMEI tracking made warranty claims painless. One search pulls up the full purchase and service history instantly.",
+    initials: "DV",
+    name: "Deepak Verma",
+    role: "Proprietor, Verma Telecom · Lucknow",
+  },
+  {
+    text: "Switching took an afternoon. Within a week my whole team was billing faster and the paperwork just disappeared.",
+    initials: "FK",
+    name: "Faisal Khan",
+    role: "Owner, City Mobiles · Jaipur",
+  },
 ];
+
+const LOOP = [...testimonials, ...testimonials];
 
 export default function Testimonials() {
   return (
@@ -41,21 +61,26 @@ export default function Testimonials() {
           <em>never went back</em>
         </h2>
       </div>
-      <div className="testi-grid reveal">
-        {testimonials.map((t) => (
-          <div className="testi-card" key={t.name}>
-            <div className="quote-mark">&ldquo;</div>
-            <div className="stars">★★★★★</div>
-            <p className="testi-text">{t.text}</p>
-            <div className="testi-author">
-              <div className="testi-avatar">{t.initials}</div>
-              <div>
-                <div className="testi-name">{t.name}</div>
-                <div className="testi-role">{t.role}</div>
+
+      <div className="testi-marquee reveal">
+        <div className="testi-track">
+          {LOOP.map((t, i) => (
+            <div className="testi-card" key={`${t.name}-${i}`}>
+              <div className="testi-card-top">
+                <span className="quote-mark">&ldquo;</span>
+                <span className="stars">★★★★★</span>
+              </div>
+              <p className="testi-text">{t.text}</p>
+              <div className="testi-author">
+                <div className="testi-avatar">{t.initials}</div>
+                <div>
+                  <div className="testi-name">{t.name}</div>
+                  <div className="testi-role">{t.role}</div>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );

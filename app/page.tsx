@@ -9,7 +9,6 @@ import ProblemSolution from "@/components/ProblemSolution";
 import Features from "@/components/Features";
 import Showcase from "@/components/Showcase";
 import HowItWorks from "@/components/HowItWorks";
-import Analytics from "@/components/Analytics";
 import Testimonials from "@/components/Testimonials";
 import Pricing from "@/components/Pricing";
 import FAQ from "@/components/FAQ";
@@ -32,7 +31,6 @@ export default function Home() {
         <Features />
         <Showcase />
         <HowItWorks />
-        <Analytics />
         <Testimonials />
         <Pricing />
         <FAQ />
