@@ -5,7 +5,7 @@ export default function CTA() {
       <div className="cta-ring r2" />
       <div
         className="eyebrow center"
-        style={{ justifyContent: "center", color: "rgba(19,18,16,0.6)" }}
+        style={{ justifyContent: "center" }}
       >
         Get Started
       </div>
