@@ -6,7 +6,6 @@ import Hero from "@/components/Hero";
 import Marquee from "@/components/Marquee";
 import Stats from "@/components/Stats";
 import ProblemSolution from "@/components/ProblemSolution";
-import Features from "@/components/Features";
 import Showcase from "@/components/Showcase";
 import HowItWorks from "@/components/HowItWorks";
 import Testimonials from "@/components/Testimonials";
@@ -28,7 +27,6 @@ export default function Home() {
         <Marquee />
         <Stats />
         <ProblemSolution />
-        <Features />
         <Showcase />
         <HowItWorks />
         <Testimonials />

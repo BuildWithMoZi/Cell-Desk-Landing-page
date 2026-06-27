@@ -8,6 +8,9 @@ import Footer from "@/components/Footer";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MOBILE_RE = /^[+]?[\d][\d\s-]{6,15}$/;
 
+// WhatsApp business number in international format (country code + number, no +).
+const WHATSAPP_NUMBER = "919403429923";
+
 export default function ContactPage() {
   const [email, setEmail] = useState("");
   const [mobile, setMobile] = useState("");
@@ -25,6 +28,16 @@ export default function ContactPage() {
       return;
     }
     setError("");
+
+    const message =
+      `Hi Cell Desk, I want to get started with my mobile shop.\n\n` +
+      `Email: ${email.trim()}\n` +
+      `Mobile: ${mobile.trim()}`;
+    const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+      message,
+    )}`;
+    window.open(waUrl, "_blank", "noopener,noreferrer");
+
     setSent(true);
   };
 
@@ -81,10 +94,11 @@ export default function ContactPage() {
                     <path d="M20 6L9 17l-5-5" />
                   </svg>
                 </div>
-                <h2>Thanks — we&apos;ve got it!</h2>
+                <h2>Opening WhatsApp…</h2>
                 <p>
-                  We&apos;ll reach out to <strong>{email}</strong> and{" "}
-                  <strong>{mobile}</strong> shortly to help you get logged in.
+                  We&apos;ve opened a WhatsApp chat with your details. Just hit
+                  send and our team will help <strong>{email}</strong> /{" "}
+                  <strong>{mobile}</strong> get started right away.
                 </p>
                 <button
                   type="button"
