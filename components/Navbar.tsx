@@ -13,6 +13,18 @@ const NAV_LINKS = [
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const hero = document.getElementById("hero");
+      const threshold = hero ? hero.offsetHeight - 80 : 400;
+      setScrolled(window.scrollY > threshold);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -30,7 +42,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav id="navbar">
+      <nav id="navbar" className={scrolled ? "scrolled" : ""}>
         <a href="#hero" className="nav-logo" aria-label="Cell Desk home">
           <img
             className="nav-logo-img"
