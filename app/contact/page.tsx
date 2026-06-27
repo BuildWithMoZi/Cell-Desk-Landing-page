@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import SiteTopbar from "@/components/SiteTopbar";
 import Footer from "@/components/Footer";
 
@@ -135,8 +136,8 @@ export default function ContactPage() {
 
                 <p className="contact-form-note">
                   By continuing you agree to our{" "}
-                  <a href="/terms">Terms</a> and{" "}
-                  <a href="/privacy">Privacy Policy</a>.
+                  <Link href="/terms">Terms</Link> and{" "}
+                  <Link href="/privacy">Privacy Policy</Link>.
                 </p>
               </form>
             )}
