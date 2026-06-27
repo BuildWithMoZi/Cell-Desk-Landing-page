@@ -1,134 +1,108 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import {
-  motion,
-  useAnimationFrame,
-  useMotionValue,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-  useVelocity,
-  type MotionValue,
-} from "motion/react";
 import { asset } from "@/lib/basePath";
 
-const PRODUCTS = [
-  { src: "/hero-imges/2.png", alt: "Wireless headphones" },
-  { src: "/hero-imges/1.png", alt: "Wireless earbuds" },
-  { src: "/hero-imges/5.png", alt: "Smartphone with clear case" },
-  { src: "/hero-imges/3.png", alt: "Smartwatch" },
-  { src: "/hero-imges/4.png", alt: "Power bank" },
+const FEATURES = [
+  {
+    label: "Inventory Management",
+    icon: (
+      <path d='M3 7l9-4 9 4-9 4-9-4zm0 0v10l9 4 9-4V7M12 11v10' />
+    ),
+  },
+  {
+    label: "Sales & Purchase Tracking",
+    icon: (
+      <path d='M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.3 4.5A1 1 0 0 0 5.6 19H17m-9 2a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm9 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z' />
+    ),
+  },
+  {
+    label: "Reports & Analytics",
+    icon: <path d='M4 20V10m6 10V4m6 16v-7m4 7H2' />,
+  },
+  {
+    label: "Customer Management",
+    icon: (
+      <path d='M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm14 10v-2a4 4 0 0 0-3-3.87M16 3.13A4 4 0 0 1 16 11' />
+    ),
+  },
+  {
+    label: "Secure & Reliable",
+    icon: (
+      <path d='M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5l8-3zm-2 9l2 2 4-4' />
+    ),
+  },
 ];
 
-// Duplicated so the curved conveyor always stays populated as items loop.
-const LOOP = [...PRODUCTS, ...PRODUCTS].map((p, i, arr) => ({
-  ...p,
-  offset: i / arr.length,
-  key: `${p.src}-${i}`,
-}));
+const TRUST = [
+  {
+    label: "100% Secure",
+    icon: <path d='M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5l8-3z' />,
+  },
+  {
+    label: "Cloud Backup",
+    icon: (
+      <path d='M18 10a4 4 0 0 0-7.7-1.5A4.5 4.5 0 1 0 7.5 18H18a4 4 0 0 0 0-8z' />
+    ),
+  },
+  {
+    label: "24/7 Support",
+    icon: (
+      <path d='M3 12a9 9 0 0 1 18 0v5a2 2 0 0 1-2 2h-1v-7h3M3 12v5a2 2 0 0 0 2 2h1v-7H3' />
+    ),
+  },
+];
 
-// --- Curve tuning (tweak these to change the arc) ---
-const ARC_START = -60; // entry angle (deg); item enters from the top
-const ARC_SPAN = 300; // total sweep; bigger = more gap between images
-const RADIUS_X = 0.45; // leftward bulge, * container width
-const RADIUS_Y = 0.76; // vertical travel (top → bottom), * container height
-const SHIFT_X = 0.34; // push the whole arc toward the right, * container width
-const SCALE_MIN = 0.12; // size of items entering/leaving
-const SCALE_MAX = 1.15; // size of the front (most-bulged) item
-const BASE_SPEED = 0.024; // loops per second when idle (lower = slower)
-const SCROLL_BOOST = 0.00005; // extra loops/sec per px/sec of scroll velocity
-const BOOST_CAP = 0.55; // max extra speed from scrolling
+const STATS = [
+  {
+    title: "1000+",
+    sub: "Mobile Shops",
+    badge: "Trusted by",
+    icon: (
+      <path d='M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5l8-3zm-2 9l2 2 4-4' />
+    ),
+  },
+  {
+    title: "Reliable",
+    sub: "Always available when you need it",
+    icon: <path d='M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z' />,
+  },
+  {
+    title: "Secure",
+    sub: "Your data is safe with us",
+    icon: (
+      <path d='M5 11V8a7 7 0 0 1 14 0v3M5 11h14v9a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-9z' />
+    ),
+  },
+  {
+    title: "Fast",
+    sub: "Optimized for speed and performance",
+    icon: <path d='M13 2L3 14h7l-1 8 10-12h-7l1-8z' />,
+  },
+  {
+    title: "Support",
+    sub: "Our team is here to help you",
+    icon: (
+      <path d='M3 12a9 9 0 0 1 18 0v5a2 2 0 0 1-2 2h-1v-7h3M3 12v5a2 2 0 0 0 2 2h1v-7H3' />
+    ),
+  },
+];
 
-const frac = (p: number) => ((p % 1) + 1) % 1;
-const degOf = (p: number) => ARC_START + frac(p) * ARC_SPAN;
-const radOf = (p: number) => (degOf(p) * Math.PI) / 180;
-const clamp01 = (n: number) => Math.max(0, Math.min(1, n));
-
-function CurveItem({
-  progress,
-  width,
-  height,
-  offset,
-  src,
-  alt,
-}: {
-  progress: MotionValue<number>;
-  width: MotionValue<number>;
-  height: MotionValue<number>;
-  offset: number;
-  src: string;
-  alt: string;
-}) {
-  const x = useTransform([progress, width], (latest) => {
-    const [p, w] = latest as number[];
-    return (SHIFT_X - Math.sin(radOf(p + offset)) * RADIUS_X) * w;
-  });
-  const y = useTransform([progress, height], (latest) => {
-    const [p, h] = latest as number[];
-    return -Math.cos(radOf(p + offset)) * h * RADIUS_Y;
-  });
-  const scale = useTransform(progress, (p) => {
-    const lift = clamp01(Math.sin(radOf(p + offset)));
-    return SCALE_MIN + lift * (SCALE_MAX - SCALE_MIN);
-  });
-  const rotate = useTransform(progress, (p) => (90 - degOf(p + offset)) * 0.06);
-  const opacity = useTransform(progress, (p) =>
-    clamp01((Math.sin(radOf(p + offset)) + 0.1) / 0.32),
-  );
-  const zIndex = useTransform(progress, (p) =>
-    Math.round((Math.sin(radOf(p + offset)) + 1) * 100),
-  );
-
+function Icon({ children }: { children: React.ReactNode }) {
   return (
-    <motion.div
-      className='hero-curve-item'
-      style={{ x, y, rotate, scale, opacity, zIndex }}>
-      <img src={asset(src)} alt={alt} draggable={false} />
-    </motion.div>
+    <svg
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='1.8'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+      aria-hidden='true'>
+      {children}
+    </svg>
   );
 }
 
 export default function Hero() {
-  const reduced = useReducedMotion();
-  const curveRef = useRef<HTMLDivElement>(null);
-  const progress = useMotionValue(0);
-  const width = useMotionValue(1000);
-  const height = useMotionValue(400);
-  // Render the motion-driven curve only on the client to avoid SSR/client
-  // hydration mismatches from Framer Motion's computed transform/opacity values.
-  const [mounted, setMounted] = useState(false);
-
-  const { scrollY } = useScroll();
-  const scrollVelocity = useVelocity(scrollY);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    const el = curveRef.current;
-    if (!el) return;
-    const sync = () => {
-      width.set(el.clientWidth);
-      height.set(el.clientHeight);
-    };
-    sync();
-    const ro = new ResizeObserver(sync);
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, [width, height]);
-
-  useAnimationFrame((_, delta) => {
-    if (reduced) return;
-    const boost = Math.min(
-      Math.abs(scrollVelocity.get()) * SCROLL_BOOST,
-      BOOST_CAP,
-    );
-    const speed = BASE_SPEED + boost;
-    progress.set(progress.get() + speed * (delta / 1000));
-  });
-
   return (
     <section id='hero'>
       <div className='hero-panel'>
@@ -137,76 +111,101 @@ export default function Hero() {
         <div className='hero-orb' aria-hidden='true' />
         <div className='hero-orb hero-orb-left' aria-hidden='true' />
         <div className='hero-panel-inner'>
-          <span className='hero-eyebrow'>
-            <span className='hero-eyebrow-dot' aria-hidden='true' />
-            Smart billing &amp; inventory for mobile shops
-          </span>
-          <h1 className='hero-title'>
-            <span className='hero-line'>
-              <span style={{ animationDelay: ".15s" }}>Run Your Mobile Store.</span>
-            </span>
-            <span className='hero-line'>
-              <span style={{ animationDelay: ".3s" }}>
-                Not Your <span className='hero-hl'>Spreadsheet</span>.
-              </span>
-            </span>
-          </h1>
-          <p className='hero-sub'>
-            Manage inventory, billing, IMEI numbers, sales, customers and
-            repairs from one simple dashboard. Stop guessing stock levels and
-            focus on growing your business.
-          </p>
-          <ul className='hero-points'>
-            <li>Live stock tracking with low-stock alerts</li>
-            <li>Instant GST-ready invoices</li>
-            <li>IMEI &amp; serial number management</li>
-            <li>Sales, profit &amp; customer reports</li>
-          </ul>
-
-          {/* Desktop / tablet: auto-looping curved conveyor */}
-          <div className='hero-curve' ref={curveRef} aria-hidden='true'>
-            {mounted &&
-              LOOP.map((p) => (
-                <CurveItem
-                  key={p.key}
-                  progress={progress}
-                  width={width}
-                  height={height}
-                  offset={p.offset}
-                  src={p.src}
-                  alt={p.alt}
-                />
-              ))}
-          </div>
-
-          {/* Phones: simple straight marquee slider */}
-          <div className='hero-strip' aria-hidden='true'>
-            <div className='hero-strip-track'>
-              {[...PRODUCTS, ...PRODUCTS].map((p, i) => (
-                <div className='hero-strip-item' key={`${p.src}-${i}`}>
-                  <img src={asset(p.src)} alt={p.alt} draggable={false} />
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className='hero-cta'>
-            <a href='#pricing' className='btn btn-ink'>
-              Start Free Trial
-            </a>
-            <a href='#showcase' className='btn btn-ghost'>
+          <div className='hero-left'>
+            <span className='hero-eyebrow'>
               <svg
                 viewBox='0 0 24 24'
                 fill='currentColor'
-                width='16'
-                height='16'
+                width='14'
+                height='14'
                 aria-hidden='true'>
-                <path d='M8 5v14l11-7z' />
+                <path d='M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17l-6 3.4 1.4-6.8L2.3 9l6.9-.7L12 2z' />
               </svg>
-              Watch Demo
-            </a>
+              Smart. Simple. Secure.
+            </span>
+            <h1 className='hero-title'>
+              Cell <span className='hero-hl'>Desk</span>
+              <br />
+              Mobile Inventory Application
+            </h1>
+            <p className='hero-sub'>
+              The best solution for any mobile shop to manage stock, sales, and
+              customers with ease.
+            </p>
+
+            <ul className='hero-feature-row'>
+              {FEATURES.map((f) => (
+                <li className='hero-feature' key={f.label}>
+                  <span className='hero-feature-ic'>
+                    <Icon>{f.icon}</Icon>
+                  </span>
+                  <span className='hero-feature-label'>{f.label}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div className='hero-cta'>
+              <a href='#pricing' className='btn btn-primary'>
+                Start Free Trial
+                <svg
+                  viewBox='0 0 24 24'
+                  fill='none'
+                  stroke='currentColor'
+                  strokeWidth='2'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  width='16'
+                  height='16'
+                  aria-hidden='true'>
+                  <path d='M5 12h14M13 6l6 6-6 6' />
+                </svg>
+              </a>
+              <a href='#features' className='btn btn-ghost'>
+                View Features
+                <svg
+                  viewBox='0 0 24 24'
+                  fill='currentColor'
+                  width='14'
+                  height='14'
+                  aria-hidden='true'>
+                  <path d='M8 5v14l11-7z' />
+                </svg>
+              </a>
+            </div>
+
+            <ul className='hero-trust'>
+              {TRUST.map((t) => (
+                <li key={t.label}>
+                  <Icon>{t.icon}</Icon>
+                  {t.label}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className='hero-visual'>
+            <img
+              src={asset("/hero image.png")}
+              alt='Cell Desk dashboard showing inventory, sales and analytics'
+              draggable={false}
+            />
           </div>
         </div>
+
+        <ul className='hero-statsbar'>
+          {STATS.map((s) => (
+            <li className='hero-stat' key={s.title}>
+              <span className='hero-stat-ic'>
+                <Icon>{s.icon}</Icon>
+              </span>
+              <div className='hero-stat-text'>
+                {s.badge && <span className='hero-stat-badge'>{s.badge}</span>}
+                <span className='hero-stat-title'>{s.title}</span>
+                <span className='hero-stat-sub'>{s.sub}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );
