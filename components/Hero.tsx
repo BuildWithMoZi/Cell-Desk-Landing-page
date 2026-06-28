@@ -126,11 +126,12 @@ export default function Hero() {
             <h1 className='hero-title'>
               Cell <span className='hero-hl'>Desk</span>
               <br />
-              Mobile Inventory Application
+              Mobile Shop Inventory &amp; Billing Software
             </h1>
             <p className='hero-sub'>
-              The best solution for any mobile shop to manage stock, sales, and
-              customers with ease.
+              Cell Desk is the all-in-one mobile shop management software for
+              cell phone retailers in India — manage inventory, IMEI tracking,
+              sales, GST billing, invoices and customers from one simple app.
             </p>
 
             <ul className='hero-feature-row'>

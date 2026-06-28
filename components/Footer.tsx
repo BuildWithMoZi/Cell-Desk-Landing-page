@@ -31,8 +31,8 @@ export default function Footer() {
             Cell Desk
           </Link>
           <p className="footer-tagline">
-            The platform built for mobile phone shop owners who want to run a
-            real business.
+            Mobile shop management software for cell phone retailers — inventory,
+            IMEI tracking, GST billing, sales and customer management in one app.
           </p>
         </div>
 

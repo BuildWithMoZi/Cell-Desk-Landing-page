@@ -11,7 +11,7 @@ export const asset = (path: string): string =>
 // Public production URL. Used for canonical URLs, Open Graph tags, sitemap and robots.
 // Override per deployment via NEXT_PUBLIC_SITE_URL (no trailing slash).
 export const siteUrl = (
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://cell-desk.pages.dev"
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://celldesk.craftdesk.co.in"
 ).replace(/\/$/, "");
 
 export const pageUrl = (path = "/"): string =>

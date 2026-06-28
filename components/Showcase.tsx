@@ -102,8 +102,9 @@ export default function Showcase() {
           Explore Cell Desk <em>in action</em>
         </h2>
         <p className='section-sub'>
-          Browse real app screens that power your inventory, sales, and customer
-          management — all in one place.
+          Browse real app screens of the Cell Desk mobile shop management
+          software — inventory, IMEI stock, billing, sales and customer
+          management, all in one place.
         </p>
       </div>
 
@@ -127,7 +128,11 @@ export default function Showcase() {
               <p className='gallery-card-desc'>{screen.desc}</p>
             </div>
             <div className='gallery-card-shot'>
-              <img src={asset(screen.src)} alt={screen.label} loading='lazy' />
+              <img
+                src={asset(screen.src)}
+                alt={`Cell Desk mobile shop software — ${screen.label} screen`}
+                loading='lazy'
+              />
             </div>
           </article>
         ))}
