@@ -5,7 +5,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "pages:build": "next build",
+    "pages:preview": "next build && wrangler pages dev",
+    "pages:deploy": "next build && wrangler pages deploy"
   },
   "dependencies": {
     "motion": "^12.41.0",
@@ -17,6 +20,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "^4.105.0"
   }
 }
