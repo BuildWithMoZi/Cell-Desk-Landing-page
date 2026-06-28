@@ -1,5 +1,0 @@
-name = "cell-desk-landing-page"
-compatibility_date = "2026-06-28"
-
-# Static export from Next.js (`next build` with output: "export") lands in ./out
-pages_build_output_dir = "out"
